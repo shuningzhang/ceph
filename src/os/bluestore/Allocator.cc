@@ -11,21 +11,25 @@
 Allocator *Allocator::create(CephContext* cct, string type,
                              int64_t size, int64_t block_size)
 {
-  if (type == "stupid") {
-    return new StupidAllocator(cct);
-  } else if (type == "bitmap") {
-    return new BitMapAllocator(cct, size, block_size);
-  }
-  lderr(cct) << "Allocator::" << __func__ << " unknown alloc type "
-	     << type << dendl;
-  return nullptr;
+    if (type == "stupid")
+    {
+        return new StupidAllocator(cct);
+    }
+    else if (type == "bitmap")
+    {
+        return new BitMapAllocator(cct, size, block_size);
+    }
+    lderr(cct) << "Allocator::" << __func__ << " unknown alloc type "
+               << type << dendl;
+    return nullptr;
 }
 
 void Allocator::release(const PExtentVector& release_vec)
 {
-  interval_set<uint64_t> release_set;
-  for (auto e : release_vec) {
-    release_set.insert(e.offset, e.length);
-  }
-  release(release_set);
+    interval_set<uint64_t> release_set;
+    for (auto e : release_vec)
+    {
+        release_set.insert(e.offset, e.length);
+    }
+    release(release_set);
 }

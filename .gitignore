@@ -19,6 +19,7 @@
 *.rej
 *.rpm
 *.pyc
+*.pre
 ceph.spec
 cscope.*
 gmon.out
